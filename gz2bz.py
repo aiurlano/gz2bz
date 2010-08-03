@@ -23,8 +23,8 @@ if __name__ == "__main__":
                 ofd.write(buffer)
             else:
                 break
-    except:
-	pass
+    except (Exception), why:
+        print "There was an error: ", why
     sys.exit(0)
     
 
