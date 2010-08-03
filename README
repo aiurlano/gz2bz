@@ -1,0 +1,2 @@
+Tool to convert gzip files to bz2 in place. Useful to save disk I/O or network access if files are on a network filesystem like nfs
+
