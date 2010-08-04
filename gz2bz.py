@@ -3,17 +3,17 @@
 
 import sys, gzip, bz2, traceback
 
+def printUsage():
+    print "\nUsage: "+sys.argv[0]+" <filename>\n\n  Converts <filename> from gzip to bzip2.\n  Note that <filename> must end with .gz"
+    
+
 if __name__ == "__main__":
-    if len(sys.argv)<2:
-        print "\nUsage: "+sys.argv[0]+" <filename>\n\n   converts the file name from gzip to bzip2.\n   Note that filename must end with .gz"
+    if (len(sys.argv)<2) or (not sys.argv[1].endswith(".gz")):
+        printUsage()
         exit(1)
 
-    if not sys.argv[1].endswith(".gz"):
-        print "\nUsage: "+sys.argv[0]+" <filename>\n\n   converts the file name from gzip to bzip2.\n   Note that filename must end with .gz"
-        exit()
-
     basefilename=sys.argv[1][:-3]
-    print basefilename
+    print basefilename,":",
     try:
         ifd = gzip.GzipFile(filename=basefilename+".gz", mode='rb')
         ofd = bz2.BZ2File(filename=basefilename+".bz2", mode='wb', compresslevel=9)
@@ -23,8 +23,10 @@ if __name__ == "__main__":
                 ofd.write(buffer)
             else:
                 break
+        print "OK"
     except (Exception), why:
-        print "There was an error: ", why
+        print "Error", why
+
     sys.exit(0)
     
 
